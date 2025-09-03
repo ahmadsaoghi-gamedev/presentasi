@@ -1202,9 +1202,7 @@ body {
     padding: 1rem;
 }
 
-.words-section:hover, .pictures-section:hover {
-    /* Remove hover effects for cleaner look */
-}
+/* Removed hover effects for cleaner look */
 
 .section-title {
     font-size: 1.4rem;
