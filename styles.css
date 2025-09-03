@@ -1137,23 +1137,23 @@ body {
 
 .matching-instructions {
     text-align: center;
-    margin-bottom: 4rem;
-    padding: 3rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 25px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     color: white;
 }
 
 .instruction-text {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .instruction-subtext {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     opacity: 0.9;
     font-style: italic;
 }
@@ -1161,24 +1161,24 @@ body {
 .matching-game {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
-    margin-bottom: 4rem;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
     width: 100%;
     background: white;
-    padding: 3rem;
-    border-radius: 25px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 768px) {
     .matching-game {
-        gap: 4rem;
+        gap: 2rem;
     }
 }
 
 @media (min-width: 1200px) {
     .matching-game {
-        gap: 5rem;
+        gap: 2.5rem;
     }
 }
 
@@ -1189,7 +1189,7 @@ body {
     align-items: center;
     justify-content: center;
     background: transparent;
-    padding: 1rem;
+    padding: 0.5rem;
 }
 
 .pictures-section {
@@ -1199,37 +1199,37 @@ body {
     align-items: center;
     justify-content: center;
     background: transparent;
-    padding: 1rem;
+    padding: 0.5rem;
 }
 
 /* Removed hover effects for cleaner look */
 
 .section-title {
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: #333;
     text-align: center;
-    margin-bottom: 2rem;
-    padding: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
     background: transparent;
-    border-radius: 12px;
+    border-radius: 8px;
     width: 100%;
 }
 
 .words-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 1rem;
     width: 100%;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .pictures-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 2.5rem;
+    gap: 1rem;
     width: 100%;
     align-items: start;
     justify-items: center;
@@ -1258,15 +1258,15 @@ body {
 .word-item {
     background: #4CAF50;
     border: none;
-    border-radius: 12px;
-    padding: 1.5rem 2rem;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
     text-align: center;
     cursor: grab;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
     user-select: none;
-    min-width: 140px;
-    height: 70px;
+    min-width: 120px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1312,10 +1312,10 @@ body {
 }
 
 .word-item span {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     z-index: 1;
     position: relative;
     text-align: center;
@@ -1336,34 +1336,34 @@ body {
 
 .picture-item {
     background: white;
-    border: 3px solid #e0e0e0;
-    border-radius: 16px;
-    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 0.8rem;
     text-align: center;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     position: relative;
-    height: 280px;
+    height: 220px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    max-width: 200px;
+    max-width: 160px;
     overflow: hidden;
 }
 
 @media (min-width: 768px) {
     .picture-item {
-        height: 320px;
-        max-width: 220px;
+        height: 260px;
+        max-width: 180px;
     }
 }
 
 @media (min-width: 1200px) {
     .picture-item {
-        height: 360px;
-        max-width: 250px;
+        height: 280px;
+        max-width: 200px;
     }
 }
 
@@ -1393,11 +1393,11 @@ body {
 /* Drop zone box above each image */
 .drop-zone-box {
     width: 100%;
-    height: 60px;
-    border: 3px dashed #ccc;
-    border-radius: 12px;
+    height: 50px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
     background: #f9f9f9;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1418,38 +1418,38 @@ body {
 }
 
 .drop-zone-box .matched-word {
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-size: 1.1rem;
+    font-weight: 600;
     color: #2e7d32;
 }
 
 /* Image Container untuk karakter */
 .image-container {
     width: 100%;
-    height: 200px;
-    border-radius: 12px;
+    height: 150px;
+    border-radius: 8px;
     overflow: visible;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px;
+    padding: 10px;
     background: #f8f9fa;
     position: relative;
-    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.08);
-    border: 2px solid rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 @media (min-width: 768px) {
     .image-container {
-        height: 240px;
-        padding: 20px;
+        height: 180px;
+        padding: 12px;
     }
 }
 
 @media (min-width: 1200px) {
     .image-container {
-        height: 280px;
-        padding: 25px;
+        height: 200px;
+        padding: 15px;
     }
 }
 
@@ -1768,11 +1768,11 @@ img {
 
 .matching-feedback {
     text-align: center;
-    padding: 30px;
-    border-radius: 20px;
-    font-size: 1.8rem;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 1.4rem;
     font-weight: 700;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.3s ease;
@@ -1797,18 +1797,18 @@ img {
 
 .matching-progress {
     text-align: center;
-    padding: 2.5rem;
+    padding: 1.5rem;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 25px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     color: white;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 .progress-text {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 

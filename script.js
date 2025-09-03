@@ -715,9 +715,8 @@ function drop(event) {
         return;
     }
 
-    // Get the picture item and check if match is correct
-    const pictureItem = dropZoneBox.closest('.picture-item');
-    const pictureWord = pictureItem.dataset.word;
+    // Get the correct word from drop zone box
+    const pictureWord = dropZoneBox.dataset.word;
     const isCorrect = draggedWord === pictureWord;
 
     if (isCorrect) {
