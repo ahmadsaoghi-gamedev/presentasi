@@ -452,44 +452,49 @@
 
                                 <!-- Pictures Section (Drop Zones) -->
                                 <div class="pictures-section">
-                                    <h3 class="section-title">Drop the words here</h3>
-                                                                   <div class="pictures-grid">
-                                   <div class="picture-item drop-zone" data-word="hair" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
-                                       <div class="tall-character-container">
-                                           <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/9089b26aba19.jpg" alt="Hair">
-                                       </div>
-                                       <div class="drop-indicator">Drop "hair" here</div>
-                                       <div class="match-indicator">✓</div>
-                                   </div>
-                                   <div class="picture-item drop-zone" data-word="eyes" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
-                                       <div class="tall-character-container">
-                                           <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/3a37d7f31374.jpg" alt="Eyes">
-                                       </div>
-                                       <div class="drop-indicator">Drop "eyes" here</div>
-                                       <div class="match-indicator">✓</div>
-                                   </div>
-                                   <div class="picture-item drop-zone" data-word="glasses" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
-                                       <div class="tall-character-container">
-                                           <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/439ba8203ddd.jpg" alt="Glasses">
-                                       </div>
-                                       <div class="drop-indicator">Drop "glasses" here</div>
-                                       <div class="match-indicator">✓</div>
-                                   </div>
-                                   <div class="picture-item drop-zone" data-word="shirt" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
-                                       <div class="tall-character-container">
-                                           <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/ef60d0905bcc.jpg" alt="Shirt">
-                                       </div>
-                                       <div class="drop-indicator">Drop "shirt" here</div>
-                                       <div class="match-indicator">✓</div>
-                                   </div>
-                                   <div class="picture-item drop-zone" data-word="smile" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
-                                       <div class="tall-character-container">
-                                           <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/c3434632df67.jpg" alt="Smile">
-                                       </div>
-                                       <div class="drop-indicator">Drop "smile" here</div>
-                                       <div class="match-indicator">✓</div>
-                                   </div>
-                               </div>
+                                    <h3 class="section-title">Match the words with the pictures</h3>
+                                    <div class="pictures-grid">
+                                        <div class="picture-item" data-word="hair">
+                                            <div class="drop-zone-box" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                                <span class="matched-word"></span>
+                                            </div>
+                                            <div class="image-container">
+                                                <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/9089b26aba19.jpg" alt="Hair">
+                                            </div>
+                                        </div>
+                                        <div class="picture-item" data-word="eyes">
+                                            <div class="drop-zone-box" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                                <span class="matched-word"></span>
+                                            </div>
+                                            <div class="image-container">
+                                                <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/3a37d7f31374.jpg" alt="Eyes">
+                                            </div>
+                                        </div>
+                                        <div class="picture-item" data-word="glasses">
+                                            <div class="drop-zone-box" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                                <span class="matched-word"></span>
+                                            </div>
+                                            <div class="image-container">
+                                                <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/439ba8203ddd.jpg" alt="Glasses">
+                                            </div>
+                                        </div>
+                                        <div class="picture-item" data-word="shirt">
+                                            <div class="drop-zone-box" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                                <span class="matched-word"></span>
+                                            </div>
+                                            <div class="image-container">
+                                                <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/ef60d0905bcc.jpg" alt="Shirt">
+                                            </div>
+                                        </div>
+                                        <div class="picture-item" data-word="smile">
+                                            <div class="drop-zone-box" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                                <span class="matched-word"></span>
+                                            </div>
+                                            <div class="image-container">
+                                                <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/c3434632df67.jpg" alt="Smile">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

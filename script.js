@@ -636,6 +636,7 @@ function initializeMatchingQuiz() {
     // Reset all word and picture items
     const wordItems = document.querySelectorAll('.word-item');
     const pictureItems = document.querySelectorAll('.picture-item');
+    const dropZoneBoxes = document.querySelectorAll('.drop-zone-box');
 
     wordItems.forEach(item => {
         item.classList.remove('dragging', 'matched');
@@ -644,6 +645,14 @@ function initializeMatchingQuiz() {
 
     pictureItems.forEach(item => {
         item.classList.remove('drag-over', 'matched');
+    });
+
+    dropZoneBoxes.forEach(box => {
+        box.classList.remove('drag-over', 'matched');
+        const matchedWordSpan = box.querySelector('.matched-word');
+        if (matchedWordSpan) {
+            matchedWordSpan.textContent = '';
+        }
     });
 
     // Reset feedback and progress
@@ -670,28 +679,28 @@ function dragStart(event) {
 
 function dragOver(event) {
     event.preventDefault();
-    const dropZone = event.target.closest('.picture-item');
-    if (dropZone && !dropZone.classList.contains('matched')) {
-        dropZone.classList.add('drag-over');
+    const dropZoneBox = event.target.closest('.drop-zone-box');
+    if (dropZoneBox && !dropZoneBox.classList.contains('matched')) {
+        dropZoneBox.classList.add('drag-over');
         event.dataTransfer.dropEffect = 'move';
     }
 }
 
 function dragLeave(event) {
-    const dropZone = event.target.closest('.picture-item');
-    if (dropZone) {
-        dropZone.classList.remove('drag-over');
+    const dropZoneBox = event.target.closest('.drop-zone-box');
+    if (dropZoneBox) {
+        dropZoneBox.classList.remove('drag-over');
     }
 }
 
 function drop(event) {
     event.preventDefault();
-    const dropZone = event.target.closest('.picture-item');
+    const dropZoneBox = event.target.closest('.drop-zone-box');
     const draggedWord = event.dataTransfer.getData('text/plain');
 
     // Remove drag-over class
-    if (dropZone) {
-        dropZone.classList.remove('drag-over');
+    if (dropZoneBox) {
+        dropZoneBox.classList.remove('drag-over');
     }
 
     // Remove dragging class from all words
@@ -701,21 +710,26 @@ function drop(event) {
     });
 
     // Check if drop zone is valid and not already matched
-    if (!dropZone || dropZone.classList.contains('matched')) {
+    if (!dropZoneBox || dropZoneBox.classList.contains('matched')) {
         showMatchingFeedback('This picture is already matched! Try another one. 👀', 'incorrect');
         return;
     }
 
-    // Check if match is correct
-    const pictureWord = dropZone.dataset.word;
+    // Get the picture item and check if match is correct
+    const pictureItem = dropZoneBox.closest('.picture-item');
+    const pictureWord = pictureItem.dataset.word;
     const isCorrect = draggedWord === pictureWord;
 
     if (isCorrect) {
         // Correct match
         const draggedElement = document.querySelector(`.word-item[data-word="${draggedWord}"]`);
         draggedElement.classList.add('matched');
-        dropZone.classList.add('matched');
+        dropZoneBox.classList.add('matched');
         draggedElement.draggable = false;
+
+        // Show the matched word in the drop zone
+        const matchedWordSpan = dropZoneBox.querySelector('.matched-word');
+        matchedWordSpan.textContent = draggedWord;
 
         matchedPairs++;
         score += 10;

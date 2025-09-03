@@ -32,7 +32,7 @@ immediately.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/describing-people-presentation.git
+git clone https://github.com/ahmadsaoghi-gamedev/presentasi.git
 
 # Navigate to the project directory
 cd describing-people-presentation
