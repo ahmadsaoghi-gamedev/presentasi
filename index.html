@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Describe People! - Interactive Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="navigation">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="material-icons">school</i>
+                    <span>Describing People</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="nav-controls">
+                    <button class="nav-btn" id="prevBtn" onclick="previousSlide()">
+                        <i class="material-icons">arrow_back</i>
+                    </button>
+                    <span class="slide-counter">
+                        <span id="currentSlide">1</span> / <span id="totalSlides">13</span>
+                    </span>
+                    <button class="nav-btn" id="nextBtn" onclick="nextSlide()">
+                        <i class="material-icons">arrow_forward</i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Slide 1: Title -->
+            <div class="slide active" id="slide-1">
+                <div class="slide-content title-slide">
+                    <div class="title-overlay">
+                        <h1 class="main-title">Let's Describe People!</h1>
+                        <h2 class="subtitle">Learning How to Describe Our Friends</h2>
+                        <div class="start-button-container">
+                            <button class="start-btn" onclick="nextSlide()">
+                                <i class="material-icons">play_arrow</i>
+                                Start Learning
+                            </button>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Warm-up Quiz -->
+            <div class="slide" id="slide-2">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Pemanasan: Guess Who?</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="quiz-container">
+                            <div class="quiz-question">
+                                <p class="question-text">He has glasses.</p>
+                            </div>
+                            <div class="quiz-options">
+                                <div class="option" onclick="selectOption(this, 1)">
+                                    <img src="https://sfile.chatglm.cn/images-ppt/439ba8203ddd.jpg" alt="Boy with glasses">
+                                    <span>Picture 1</span>
+                                </div>
+                                <div class="option" onclick="selectOption(this, 2)">
+                                    <img src="https://sfile.chatglm.cn/images-ppt/fa8a16687464.jpg" alt="Girl with curly hair">
+                                    <span>Picture 2</span>
+                                </div>
+                                <div class="option" onclick="selectOption(this, 3)">
+                                    <img src="https://sfile.chatglm.cn/images-ppt/b74a8db46788.jpg" alt="Boy wearing hat">
+                                    <span>Picture 3</span>
+                                </div>
+                            </div>
+                            <div class="quiz-feedback" id="quiz-feedback-2"></div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Learning Goals -->
+            <div class="slide" id="slide-3">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Tujuan Belajar Kita Hari Ini</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="goals-container">
+                            <div class="goal-item">
+                                <div class="goal-icon">
+                                    <i class="material-icons">school</i>
+                                </div>
+                                <div class="goal-text">Learn new words to describe people</div>
+                            </div>
+                            <div class="goal-item">
+                                <div class="goal-icon">
+                                    <i class="material-icons">format_quote</i>
+                                </div>
+                                <div class="goal-text">Learn how to make simple sentences</div>
+                            </div>
+                            <div class="goal-item">
+                                <div class="goal-icon">
+                                    <i class="material-icons">create</i>
+                                </div>
+                                <div class="goal-text">Write a short text to describe a person</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Physical Appearance Vocabulary -->
+            <div class="slide" id="slide-4">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Kata-Kata Baru: Penampilan Fisik</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="vocabulary-section">
+                            <div class="vocab-category">
+                                <h3 class="category-title">
+                                    <i class="material-icons">content_cut</i>
+                                    Hair
+                                </h3>
+                                <div class="vocab-items">
+                                    <div class="vocab-item" onclick="playAudio('long hair')">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/9089b26aba19.jpg" alt="Long hair">
+                                        <span>long hair</span>
+                                    </div>
+                                    <div class="vocab-item" onclick="playAudio('short hair')">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/9089b26aba19.jpg" alt="Short hair">
+                                        <span>short hair</span>
+                                    </div>
+                                    <div class="vocab-item" onclick="playAudio('curly hair')">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/9089b26aba19.jpg" alt="Curly hair">
+                                        <span>curly hair</span>
+                                    </div>
+                                    <div class="vocab-item" onclick="playAudio('straight hair')">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/9089b26aba19.jpg" alt="Straight hair">
+                                        <span>straight hair</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vocab-category">
+                                <h3 class="category-title">
+                                    <i class="material-icons">visibility</i>
+                                    Eyes
+                                </h3>
+                                <div class="vocab-items">
+                                    <div class="vocab-item" onclick="playAudio('black eyes')">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/3a37d7f31374.jpg" alt="Black eyes">
+                                        <span>black eyes</span>
+                                    </div>
+                                    <div class="vocab-item" onclick="playAudio('brown eyes')">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/3a37d7f31374.jpg" alt="Brown eyes">
+                                        <span>brown eyes</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Clothes Vocabulary -->
+            <div class="slide" id="slide-5">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Kata-Kata Baru: Pakaian</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="clothes-container">
+                            <div class="clothes-image">
+                                <img src="https://sfile.chatglm.cn/images-ppt/ef60d0905bcc.jpg" alt="Various clothes">
+                            </div>
+                            <div class="clothes-items">
+                                <div class="clothing-item" onclick="playAudio('t-shirt')">
+                                    <div class="item-icon">
+                                        <i class="material-icons">checkroom</i>
+                                    </div>
+                                    <div class="item-name">T-shirt</div>
+                                    <div class="item-translation">Kaos</div>
+                                </div>
+                                <div class="clothing-item" onclick="playAudio('shirt')">
+                                    <div class="item-icon">
+                                        <i class="material-icons">dry_cleaning</i>
+                                    </div>
+                                    <div class="item-name">Shirt</div>
+                                    <div class="item-translation">Kemeja</div>
+                                </div>
+                                <div class="clothing-item" onclick="playAudio('trousers')">
+                                    <div class="item-icon">
+                                        <i class="material-icons">straighten</i>
+                                    </div>
+                                    <div class="item-name">Trousers</div>
+                                    <div class="item-translation">Celana panjang</div>
+                                </div>
+                                <div class="clothing-item" onclick="playAudio('skirt')">
+                                    <div class="item-icon">
+                                        <i class="material-icons">female</i>
+                                    </div>
+                                    <div class="item-name">Skirt</div>
+                                    <div class="item-translation">Rok</div>
+                                </div>
+                                <div class="clothing-item" onclick="playAudio('dress')">
+                                    <div class="item-icon">
+                                        <i class="material-icons">style</i>
+                                    </div>
+                                    <div class="item-name">Dress</div>
+                                    <div class="item-translation">Gaun</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Sentence Structure -->
+            <div class="slide" id="slide-6">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Cara Membuat Kalimat</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="sentence-types">
+                            <div class="sentence-type">
+                                <div class="type-title">
+                                    <i class="material-icons">face</i>
+                                    Using "He has..." and "She has..."
+                                </div>
+                                <div class="examples">
+                                    <div class="example">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/cb412aeaf16e.jpg" alt="Boy with short hair">
+                                        <div class="example-sentence">He has short hair.</div>
+                                    </div>
+                                    <div class="example">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/c3434632df67.jpg" alt="Girl with long hair">
+                                        <div class="example-sentence">She has long hair.</div>
+                                    </div>
+                                </div>
+                                <div class="note">We use "has" to talk about physical features someone possesses</div>
+                            </div>
+                            <div class="sentence-type">
+                                <div class="type-title">
+                                    <i class="material-icons">accessibility_new</i>
+                                    Using "He is..." and "She is..."
+                                </div>
+                                <div class="examples">
+                                    <div class="example">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/cb412aeaf16e.jpg" alt="Boy">
+                                        <div class="example-sentence">He is tall.</div>
+                                    </div>
+                                    <div class="example">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/c3434632df67.jpg" alt="Girl">
+                                        <div class="example-sentence">She is short.</div>
+                                    </div>
+                                </div>
+                                <div class="note">We use "is" to describe someone's characteristics or qualities</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Text Structure -->
+            <div class="slide" id="slide-7">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Struktur Teks Deskriptif</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="structure-container">
+                            <div class="character-image">
+                                <img src="https://sfile.chatglm.cn/images-ppt/037d632d06fe.png" alt="Budi character">
+                                <div class="image-caption">This is Budi</div>
+                            </div>
+                            <div class="structure-steps">
+                                <div class="step">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <div class="step-title">Identification</div>
+                                        <div class="step-text">This is <span class="highlight">Budi</span>.</div>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <div class="step-title">Description</div>
+                                        <div class="step-text">
+                                            • He has <span class="highlight">short hair</span>.<br>
+                                            • He has <span class="highlight">black eyes</span>.<br>
+                                            • He is wearing a <span class="highlight">blue t-shirt</span>.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Practice Exercise -->
+            <div class="slide" id="slide-8">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Ayo Berlatih!</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="practice-container">
+                            <div class="character-image">
+                                <img src="https://sfile.chatglm.cn/images-ppt/3d892bc2ece5.png" alt="Sari character">
+                                <div class="image-caption">This is Sari</div>
+                            </div>
+                            <div class="fill-blanks">
+                                <h3>Fill in the blanks!</h3>
+                                <div class="sentence-blank">
+                                    <span>This is</span>
+                                    <input type="text" class="blank-input" placeholder="___" data-answer="Sari">
+                                    <span>.</span>
+                                </div>
+                                <div class="sentence-blank">
+                                    <span>She has</span>
+                                    <input type="text" class="blank-input" placeholder="___" data-answer="long">
+                                    <span>hair.</span>
+                                </div>
+                                <div class="sentence-blank">
+                                    <span>She is wearing a pink</span>
+                                    <input type="text" class="blank-input" placeholder="___" data-answer="dress">
+                                    <span>.</span>
+                                </div>
+                                <button class="check-answers-btn" onclick="checkAnswers()">Check Answers</button>
+                                <div class="answers-feedback" id="answers-feedback"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Quiz 1 - Multiple Choice -->
+            <div class="slide" id="slide-9">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Quiz Time!</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="quiz-container">
+                            <div class="quiz-question">
+                                <p class="question-text">Which sentence is correct?</p>
+                            </div>
+                            <div class="quiz-options">
+                                <div class="option" onclick="selectQuizOption(this, 'A')">
+                                    <span class="option-letter">A</span>
+                                    <span>He is short hair.</span>
+                                </div>
+                                <div class="option" onclick="selectQuizOption(this, 'B')">
+                                    <span class="option-letter">B</span>
+                                    <span>He has short hair.</span>
+                                </div>
+                                <div class="option" onclick="selectQuizOption(this, 'C')">
+                                    <span class="option-letter">C</span>
+                                    <span>He have short hair.</span>
+                                </div>
+                            </div>
+                            <div class="quiz-feedback" id="quiz-feedback-9"></div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 10: Quiz 2 - Picture Description -->
+            <div class="slide" id="slide-10">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Describe This Person!</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="quiz-container">
+                            <div class="quiz-question">
+                                <img src="https://sfile.chatglm.cn/images-ppt/cb412aeaf16e.jpg" alt="Boy with glasses" class="quiz-image">
+                                <p class="question-text">Choose the correct description:</p>
+                            </div>
+                            <div class="quiz-options">
+                                <div class="option" onclick="selectQuizOption(this, 'A')">
+                                    <span class="option-letter">A</span>
+                                    <span>She has long hair and glasses.</span>
+                                </div>
+                                <div class="option" onclick="selectQuizOption(this, 'B')">
+                                    <span class="option-letter">B</span>
+                                    <span>He has short hair and glasses.</span>
+                                </div>
+                                <div class="option" onclick="selectQuizOption(this, 'C')">
+                                    <span class="option-letter">C</span>
+                                    <span>He has curly hair and no glasses.</span>
+                                </div>
+                            </div>
+                            <div class="quiz-feedback" id="quiz-feedback-10"></div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 11: Matching Pair Quiz -->
+            <div class="slide" id="slide-11">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Matching Pair Quiz!</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="matching-container">
+                            <div class="matching-instructions">
+                                <p class="instruction-text">Match the words with the correct pictures!</p>
+                                <p class="instruction-subtext">Drag the words from the left to the matching pictures on the right</p>
+                            </div>
+                            
+                            <div class="matching-game">
+                                <!-- Words Section (Draggable) -->
+                                <div class="words-section">
+                                    <h3 class="section-title">Drag the words to the pictures</h3>
+                                    <div class="words-grid">
+                                        <div class="word-item draggable" data-word="hair" draggable="true" ondragstart="dragStart(event)">
+                                            <span>hair</span>
+                                        </div>
+                                        <div class="word-item draggable" data-word="eyes" draggable="true" ondragstart="dragStart(event)">
+                                            <span>eyes</span>
+                                        </div>
+                                        <div class="word-item draggable" data-word="glasses" draggable="true" ondragstart="dragStart(event)">
+                                            <span>glasses</span>
+                                        </div>
+                                        <div class="word-item draggable" data-word="shirt" draggable="true" ondragstart="dragStart(event)">
+                                            <span>shirt</span>
+                                        </div>
+                                        <div class="word-item draggable" data-word="smile" draggable="true" ondragstart="dragStart(event)">
+                                            <span>smile</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Pictures Section (Drop Zones) -->
+                                <div class="pictures-section">
+                                    <h3 class="section-title">Drop the words here</h3>
+                                                                   <div class="pictures-grid">
+                                   <div class="picture-item drop-zone" data-word="hair" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                       <div class="tall-character-container">
+                                           <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/9089b26aba19.jpg" alt="Hair">
+                                       </div>
+                                       <div class="drop-indicator">Drop "hair" here</div>
+                                       <div class="match-indicator">✓</div>
+                                   </div>
+                                   <div class="picture-item drop-zone" data-word="eyes" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                       <div class="tall-character-container">
+                                           <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/3a37d7f31374.jpg" alt="Eyes">
+                                       </div>
+                                       <div class="drop-indicator">Drop "eyes" here</div>
+                                       <div class="match-indicator">✓</div>
+                                   </div>
+                                   <div class="picture-item drop-zone" data-word="glasses" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                       <div class="tall-character-container">
+                                           <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/439ba8203ddd.jpg" alt="Glasses">
+                                       </div>
+                                       <div class="drop-indicator">Drop "glasses" here</div>
+                                       <div class="match-indicator">✓</div>
+                                   </div>
+                                   <div class="picture-item drop-zone" data-word="shirt" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                       <div class="tall-character-container">
+                                           <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/ef60d0905bcc.jpg" alt="Shirt">
+                                       </div>
+                                       <div class="drop-indicator">Drop "shirt" here</div>
+                                       <div class="match-indicator">✓</div>
+                                   </div>
+                                   <div class="picture-item drop-zone" data-word="smile" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                       <div class="tall-character-container">
+                                           <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/c3434632df67.jpg" alt="Smile">
+                                       </div>
+                                       <div class="drop-indicator">Drop "smile" here</div>
+                                       <div class="match-indicator">✓</div>
+                                   </div>
+                               </div>
+                                </div>
+                            </div>
+
+                            <div class="matching-feedback" id="matching-feedback"></div>
+                            <div class="matching-progress">
+                                <div class="progress-text">Matches: <span id="match-count">0</span>/5</div>
+                                <div class="progress-bar-matching">
+                                    <div class="progress-fill-matching" id="matching-progress-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 12: Final Activity -->
+            <div class="slide" id="slide-12">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Tugasmu Sekarang</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="activity-container">
+                            <div class="activity-icon">
+                                <i class="material-icons">assignment</i>
+                            </div>
+                            <h2 class="activity-title">Let's Practice Together!</h2>
+                            <div class="instructions">
+                                <div class="instruction">
+                                    <i class="material-icons">visibility</i>
+                                    <span>Now, look at your friend next to you.</span>
+                                </div>
+                                <div class="instruction">
+                                    <i class="material-icons">create</i>
+                                    <span>Write a short descriptive text about your friend!</span>
+                                </div>
+                                <div class="instruction">
+                                    <i class="material-icons">emoji_events</i>
+                                    <span>Don't be afraid to try!</span>
+                                </div>
+                            </div>
+                            <div class="encouragement">You can do it! ✨</div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 13: Results & Thank You -->
+            <div class="slide" id="slide-13">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Terima Kasih!</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="results-container">
+                            <div class="thank-you-text">Great Job!</div>
+                            <div class="score-display">
+                                <div class="score-circle">
+                                    <span class="score-number" id="finalScore">0</span>
+                                    <span class="score-label">Score</span>
+                                </div>
+                            </div>
+                            <div class="children-image">
+                                <img src="https://sfile.chatglm.cn/images-ppt/2925dd85b23d.jpg" alt="Children waving goodbye">
+                            </div>
+                            <div class="message">Now you can describe people in English!</div>
+                            <div class="celebration-icons">
+                                <div class="icon-item">
+                                    <i class="material-icons">star</i>
+                                </div>
+                                <div class="icon-item">
+                                    <i class="material-icons">favorite</i>
+                                </div>
+                                <div class="icon-item">
+                                    <i class="material-icons">thumb_up</i>
+                                </div>
+                            </div>
+                            <button class="restart-btn" onclick="restartPresentation()">
+                                <i class="material-icons">refresh</i>
+                                Try Again
+                            </button>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Audio elements for pronunciation -->
+    <audio id="audioPlayer" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

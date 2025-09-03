@@ -1,0 +1,34 @@
+{
+  "name": "describing-people-interactive-presentation",
+  "version": "1.0.0",
+  "description": "Interactive presentation application for learning to describe people in English - designed for 5th grade elementary students",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo 'No build process needed for static files'",
+    "dev": "npx serve . -l 3000",
+    "deploy": "echo 'Ready for deployment to Vercel or GitHub Pages'"
+  },
+  "keywords": [
+    "education",
+    "english-learning",
+    "interactive-presentation",
+    "elementary-school",
+    "describing-people",
+    "quiz",
+    "vocabulary"
+  ],
+  "author": "Educational Technology Developer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/describing-people-presentation.git"
+  },
+  "homepage": "https://yourusername.github.io/describing-people-presentation",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
