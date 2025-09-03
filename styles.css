@@ -337,28 +337,29 @@ body {
     padding: 2rem;
     overflow-y: auto;
     width: 100%;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 1.8;
 }
 
 @media (min-width: 768px) {
     .slide-body {
         padding: 3rem;
-        font-size: 1.3rem;
+        font-size: 1.5rem;
     }
 }
 
 @media (min-width: 1200px) {
     .slide-body {
         padding: 4rem;
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
 }
 
 /* Quiz Styles */
 .quiz-container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .quiz-question {
@@ -367,27 +368,28 @@ body {
 }
 
 .question-text {
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: #333;
     font-weight: 700;
     background: #FFD166;
-    padding: 25px;
+    padding: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(255, 209, 102, 0.3);
     line-height: 1.5;
+    text-align: center;
 }
 
 @media (min-width: 768px) {
     .question-text {
-        font-size: 2.2rem;
-        padding: 30px;
+        font-size: 2.4rem;
+        padding: 35px;
     }
 }
 
 @media (min-width: 1200px) {
     .question-text {
-        font-size: 2.4rem;
-        padding: 35px;
+        font-size: 2.6rem;
+        padding: 40px;
     }
 }
 
@@ -416,27 +418,27 @@ body {
     background: white;
     border: 3px solid #e0e0e0;
     border-radius: 15px;
-    padding: 25px;
+    padding: 30px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 600;
     line-height: 1.6;
 }
 
 @media (min-width: 768px) {
     .option {
-        font-size: 1.6rem;
-        padding: 30px;
+        font-size: 1.8rem;
+        padding: 35px;
     }
 }
 
 @media (min-width: 1200px) {
     .option {
-        font-size: 1.8rem;
-        padding: 35px;
+        font-size: 2rem;
+        padding: 40px;
     }
 }
 
@@ -535,8 +537,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .goal-item {
@@ -571,7 +574,7 @@ body {
 }
 
 .goal-text {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     color: #333;
     font-weight: 700;
 }
@@ -593,6 +596,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .vocab-category {
@@ -603,7 +609,7 @@ body {
 }
 
 .category-title {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 700;
     color: #FF6B6B;
     margin-bottom: 20px;
@@ -650,7 +656,7 @@ body {
 }
 
 .vocab-item span {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #333;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -661,6 +667,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .clothes-image {
@@ -716,14 +725,14 @@ body {
 }
 
 .item-name {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #333;
     text-align: center;
 }
 
 .item-translation {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #666;
     margin-top: 5px;
 }
@@ -739,6 +748,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .sentence-type {
@@ -867,6 +879,9 @@ body {
     display: flex;
     gap: 40px;
     align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .character-image {
@@ -929,14 +944,14 @@ body {
 }
 
 .step-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
     color: #4D96FF;
     margin-bottom: 10px;
 }
 
 .step-text {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     color: #333;
     line-height: 1.6;
 }
@@ -951,6 +966,9 @@ body {
     display: flex;
     gap: 40px;
     align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .fill-blanks {
@@ -958,7 +976,7 @@ body {
 }
 
 .fill-blanks h3 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: #FF6B6B;
     margin-bottom: 30px;
     text-align: center;
@@ -969,7 +987,7 @@ body {
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #333;
 }
@@ -977,11 +995,11 @@ body {
 .blank-input {
     border: 2px solid #4D96FF;
     border-radius: 8px;
-    padding: 10px 15px;
-    font-size: 1.2rem;
+    padding: 12px 18px;
+    font-size: 1.4rem;
     font-weight: 700;
     text-align: center;
-    min-width: 120px;
+    min-width: 140px;
     transition: all 0.3s ease;
 }
 
@@ -1411,6 +1429,49 @@ img {
     -ms-interpolation-mode: nearest-neighbor;
 }
 
+/* Projector-friendly improvements */
+.slide-content {
+    /* Ensure good contrast for projectors */
+    background: #ffffff;
+    color: #2c3e50;
+}
+
+/* Interactive element improvements */
+.option, .vocab-item, .clothing-item, .word-item, .picture-item {
+    /* Larger touch targets for better interaction */
+    min-height: 60px;
+    min-width: 60px;
+}
+
+/* Better focus indicators for keyboard navigation */
+.option:focus, .vocab-item:focus, .clothing-item:focus {
+    outline: 3px solid #4D96FF;
+    outline-offset: 2px;
+}
+
+/* Improved button sizes for projector visibility */
+.nav-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+}
+
+@media (min-width: 768px) {
+    .nav-btn {
+        width: 55px;
+        height: 55px;
+        font-size: 26px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .nav-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+    }
+}
+
 /* Additional container untuk karakter yang sangat tinggi */
 .tall-character-container {
     height: 280px;
@@ -1814,6 +1875,7 @@ img {
     
     .slide-body {
         padding: 20px;
+        font-size: 1.2rem;
     }
     
     .quiz-options {
@@ -1884,11 +1946,12 @@ img {
     }
     
     .question-text {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+        padding: 20px;
     }
     
     .goal-text {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
     
     .thank-you-text {
