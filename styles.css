@@ -890,16 +890,16 @@ body {
 }
 
 .character-image img {
-    width: 280px;
-    height: 280px;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     object-position: center;
-    border-radius: 20px;
-    border: 5px solid #FFD166;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    background: #f8f9fa;
-    padding: 20px;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0;
+    background: transparent;
+    padding: 0;
 }
 
 .image-caption {
@@ -2103,8 +2103,8 @@ img {
     }
     
     .character-image img {
-        width: 220px;
-        height: 220px;
+        width: 100%;
+        height: 100%;
     }
     
     .clothes-items {
@@ -2207,7 +2207,7 @@ img {
     }
     
     .image-container {
-        height: 100px;
+        height: 120px;
         padding: 8px;
     }
     
