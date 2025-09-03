@@ -1,13 +1,15 @@
 // Global variables
 let currentSlide = 1;
-const totalSlides = 13;
+const totalSlides = 16;
 let score = 0;
 let selectedWord = null;
 let matchedPairs = 0;
 let quizAnswers = {
     2: 1, // Slide 2: Picture 1 is correct (boy with glasses)
-    9: 'B', // Slide 9: "He has short hair" is correct
-    10: 'B' // Slide 10: "He has short hair and glasses" is correct
+    9: 'B', // Slide 9: "They have black hair" is correct
+    12: 'B', // Slide 12: "He has short hair" is correct
+    13: 'B' // Slide 13: "He has short hair and glasses" is correct
+    // Note: Other slides are content slides, not quiz slides
 };
 
 // Initialize the application
@@ -121,19 +123,27 @@ function handleSpecialSlides(slideNumber) {
             initializeWarmupQuiz();
             break;
         case 8:
-            // Initialize practice exercise
-            initializePracticeExercise();
+            // Initialize has/have practice exercise
+            initializeHasHavePractice();
             break;
         case 9:
-        case 10:
-            // Initialize quiz questions
+            // Initialize has/have quiz
             initializeQuizQuestion(slideNumber);
             break;
         case 11:
+            // Initialize practice exercise
+            initializePracticeExercise();
+            break;
+        case 12:
+        case 13:
+            // Initialize quiz questions
+            initializeQuizQuestion(slideNumber);
+            break;
+        case 14:
             // Initialize matching pair quiz
             initializeMatchingQuiz();
             break;
-        case 13:
+        case 16:
             // Show final results
             showFinalResults();
             break;
@@ -158,7 +168,7 @@ function updateNavigation() {
 // Quiz functions
 function initializeQuizStates() {
     // Initialize quiz feedback elements
-    for (let i = 2; i <= 10; i++) {
+    for (let i = 2; i <= 16; i++) {
         const feedback = document.getElementById(`quiz-feedback-${i}`);
         if (feedback) {
             feedback.style.display = 'none';
@@ -253,7 +263,7 @@ function selectQuizOption(element, optionLetter) {
 
     // Auto-advance after 4 seconds
     setTimeout(() => {
-        if (currentSlide === 9 || currentSlide === 10) {
+        if (currentSlide === 12 || currentSlide === 13) {
             nextSlide();
         }
     }, 4000);
@@ -275,6 +285,91 @@ function showFeedback(slideNumber, message, type) {
         feedback.className = `quiz-feedback ${type} show`;
         feedback.style.display = 'block';
     }
+}
+
+// Has vs Have Practice functions
+function initializeHasHavePractice() {
+    // Reset has/have practice selects
+    const selects = document.querySelectorAll('.has-have-select');
+    selects.forEach(select => {
+        select.value = '';
+        select.classList.remove('correct', 'incorrect');
+    });
+
+    const feedback = document.getElementById('has-have-feedback');
+    if (feedback) {
+        feedback.style.display = 'none';
+        feedback.classList.remove('show', 'correct', 'incorrect');
+    }
+}
+
+function checkHasHaveAnswers() {
+    const selects = document.querySelectorAll('.has-have-select');
+    let allCorrect = true;
+    let correctCount = 0;
+
+    selects.forEach(select => {
+        const userAnswer = select.value;
+        const correctAnswer = select.dataset.correct;
+
+        if (userAnswer === correctAnswer) {
+            select.classList.add('correct');
+            select.classList.remove('incorrect');
+            correctCount++;
+        } else {
+            select.classList.add('incorrect');
+            select.classList.remove('correct');
+            allCorrect = false;
+        }
+    });
+
+    const feedback = document.getElementById('has-have-feedback');
+
+    if (allCorrect) {
+        feedback.textContent = `Perfect! All answers are correct! You got ${correctCount}/5 right! 🎉`;
+        feedback.className = 'answers-feedback correct show';
+        score += 25;
+        playSuccessSound();
+    } else {
+        feedback.textContent = `Good effort! You got ${correctCount}/5 correct. Keep practicing! 💪`;
+        feedback.className = 'answers-feedback incorrect show';
+        playErrorSound();
+    }
+
+    feedback.style.display = 'block';
+}
+
+function selectHasHaveQuiz(element, optionLetter) {
+    // Remove previous selections
+    const options = document.querySelectorAll(`#slide-${currentSlide} .option`);
+    options.forEach(option => {
+        option.classList.remove('selected', 'correct', 'incorrect');
+    });
+
+    // Add selection to clicked option
+    element.classList.add('selected');
+
+    // Check if correct
+    const isCorrect = optionLetter === quizAnswers[currentSlide];
+
+    if (isCorrect) {
+        element.classList.add('correct');
+        showQuizFeedback(currentSlide, 'Excellent! You understand "has" and "have" perfectly! 🌟', 'correct');
+        score += 15;
+        playSuccessSound();
+    } else {
+        element.classList.add('incorrect');
+        const correctAnswer = quizAnswers[currentSlide];
+        showQuizFeedback(currentSlide, `Good try! The correct answer is ${correctAnswer}. Remember: "They" use "have"! 💪`, 'incorrect');
+        playErrorSound();
+    }
+
+    // Auto-advance after 4 seconds
+    setTimeout(() => {
+        if (currentSlide === 9) {
+            nextSlide();
+        }
+    }, 4000);
 }
 
 // Practice exercise functions
@@ -422,6 +517,7 @@ function restartPresentation() {
     // Reset all quiz states
     initializeQuizStates();
     initializeWarmupQuiz();
+    initializeHasHavePractice();
     initializePracticeExercise();
     initializeMatchingQuiz();
 
@@ -627,6 +723,48 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 1000);
 });
 
+// Gemini AI Integration
+const GEMINI_API_KEY = 'AIzaSyAtQYk_LT8R2TPtGin3WzyVh7D28hlzIRE';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+
+async function getGeminiFeedback(isCorrect, word, context = '') {
+    try {
+        const prompt = isCorrect
+            ? `Give an encouraging and fun feedback for a correct answer in a body parts matching game. The word was "${word}". Make it enthusiastic, educational, and include an emoji. Keep it under 50 words.`
+            : `Give a helpful and encouraging feedback for an incorrect answer in a body parts matching game. The word was "${word}". Be supportive, give a hint, and include an emoji. Keep it under 50 words.`;
+
+        const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: prompt
+                    }]
+                }]
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Gemini API request failed');
+        }
+
+        const data = await response.json();
+        const feedback = data.candidates?.[0]?.content?.parts?.[0]?.text ||
+            (isCorrect ? `Great job matching "${word}"! 🎉` : `Try again with "${word}"! 💪`);
+
+        return feedback.trim();
+    } catch (error) {
+        console.error('Gemini API error:', error);
+        // Fallback feedback
+        return isCorrect
+            ? `Excellent! "${word}" is correct! 🎉`
+            : `Not quite right! Try again with "${word}"! 💪`;
+    }
+}
+
 // Matching Pair Quiz Functions
 function initializeMatchingQuiz() {
     // Reset matching quiz state
@@ -733,23 +871,28 @@ function drop(event) {
         matchedPairs++;
         score += 10;
 
-        showMatchingFeedback('Great match! 🎉', 'correct');
+        // Get AI feedback for correct answer
+        getGeminiFeedback(true, draggedWord).then(feedback => {
+            showFeedbackPopup(true, feedback);
+        });
         playSuccessSound();
 
         updateMatchingProgress();
 
         // Check if all pairs are matched
-        if (matchedPairs === 5) {
+        if (matchedPairs === 10) {
             setTimeout(() => {
-                showMatchingFeedback('Excellent! All pairs matched! 🌟', 'correct');
+                showFeedbackPopup(true, 'Amazing! You matched all 10 pairs perfectly! 🌟 You\'re a vocabulary master!');
                 setTimeout(() => {
                     nextSlide();
-                }, 2000);
+                }, 4000);
             }, 1000);
         }
     } else {
-        // Incorrect match
-        showMatchingFeedback('Try again! Look carefully at the pictures. 👀', 'incorrect');
+        // Incorrect match - get AI feedback
+        getGeminiFeedback(false, draggedWord).then(feedback => {
+            showFeedbackPopup(false, feedback);
+        });
         playErrorSound();
     }
 }
@@ -780,17 +923,55 @@ function updateMatchingProgress() {
     }
 
     if (progressFill) {
-        const progressPercentage = (matchedPairs / 5) * 100;
+        const progressPercentage = (matchedPairs / 10) * 100;
         progressFill.style.width = `${progressPercentage}%`;
     }
+}
+
+// Popup Overlay Functions
+function showFeedbackPopup(isCorrect, message) {
+    const overlay = document.getElementById('feedback-overlay');
+    const icon = document.getElementById('feedback-icon');
+    const title = document.getElementById('feedback-title');
+    const messageEl = document.getElementById('feedback-message');
+    const popup = overlay.querySelector('.feedback-popup');
+
+    // Set content based on correctness
+    if (isCorrect) {
+        icon.textContent = '🎉';
+        title.textContent = 'Excellent!';
+        popup.classList.remove('error');
+        popup.classList.add('success');
+    } else {
+        icon.textContent = '💪';
+        title.textContent = 'Try Again!';
+        popup.classList.remove('success');
+        popup.classList.add('error');
+    }
+
+    messageEl.textContent = message;
+    overlay.classList.add('show');
+
+    // Auto close after 3 seconds
+    setTimeout(() => {
+        closeFeedbackPopup();
+    }, 3000);
+}
+
+function closeFeedbackPopup() {
+    const overlay = document.getElementById('feedback-overlay');
+    overlay.classList.remove('show');
 }
 
 // Export functions for global access
 window.nextSlide = nextSlide;
 window.previousSlide = previousSlide;
 window.selectOption = selectOption;
+window.closeFeedbackPopup = closeFeedbackPopup;
 window.selectQuizOption = selectQuizOption;
+window.selectHasHaveQuiz = selectHasHaveQuiz;
 window.checkAnswers = checkAnswers;
+window.checkHasHaveAnswers = checkHasHaveAnswers;
 window.playAudio = playAudio;
 window.restartPresentation = restartPresentation;
 window.dragStart = dragStart;

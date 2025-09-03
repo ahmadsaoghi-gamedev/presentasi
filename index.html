@@ -25,7 +25,7 @@
                         <i class="material-icons">arrow_back</i>
                     </button>
                     <span class="slide-counter">
-                        <span id="currentSlide">1</span> / <span id="totalSlides">13</span>
+                        <span id="currentSlide">1</span> / <span id="totalSlides">16</span>
                     </span>
                     <button class="nav-btn" id="nextBtn" onclick="nextSlide()">
                         <i class="material-icons">arrow_forward</i>
@@ -273,8 +273,217 @@
                 </div>
             </div>
 
-            <!-- Slide 7: Text Structure -->
+            <!-- Slide 7: Has vs Have Grammar -->
             <div class="slide" id="slide-7">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Kapan Pakai "Has" dan "Have"?</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grammar-container">
+                            <div class="grammar-rule">
+                                <div class="rule-title">
+                                    <i class="material-icons">person</i>
+                                    "Has" - untuk 1 orang
+                                </div>
+                                <div class="rule-examples">
+                                    <div class="example-sentence">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/cb412aeaf16e.jpg" alt="Boy">
+                                        <div class="sentence-text">
+                                            <span class="subject">He</span> <span class="verb has">has</span> <span class="object">short hair</span>.
+                                        </div>
+                                    </div>
+                                    <div class="example-sentence">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/c3434632df67.jpg" alt="Girl">
+                                        <div class="sentence-text">
+                                            <span class="subject">She</span> <span class="verb has">has</span> <span class="object">long hair</span>.
+                                        </div>
+                                    </div>
+                                    <div class="example-sentence">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/439ba8203ddd.jpg" alt="Boy with glasses">
+                                        <div class="sentence-text">
+                                            <span class="subject">Tom</span> <span class="verb has">has</span> <span class="object">glasses</span>.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rule-note">Gunakan "has" untuk: He, She, It, dan nama orang</div>
+                            </div>
+                            
+                            <div class="grammar-rule">
+                                <div class="rule-title">
+                                    <i class="material-icons">group</i>
+                                    "Have" - untuk lebih dari 1 orang
+                                </div>
+                                <div class="rule-examples">
+                                    <div class="example-sentence">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/2925dd85b23d.jpg" alt="Children">
+                                        <div class="sentence-text">
+                                            <span class="subject">They</span> <span class="verb have">have</span> <span class="object">black hair</span>.
+                                        </div>
+                                    </div>
+                                    <div class="example-sentence">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/2925dd85b23d.jpg" alt="Children">
+                                        <div class="sentence-text">
+                                            <span class="subject">We</span> <span class="verb have">have</span> <span class="object">brown eyes</span>.
+                                        </div>
+                                    </div>
+                                    <div class="example-sentence">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/2925dd85b23d.jpg" alt="Children">
+                                        <div class="sentence-text">
+                                            <span class="subject">You</span> <span class="verb have">have</span> <span class="object">a nice smile</span>.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rule-note">Gunakan "have" untuk: I, You, We, They</div>
+                            </div>
+                        </div>
+                        
+                        <div class="memory-tip">
+                            <div class="tip-icon">
+                                <i class="material-icons">lightbulb</i>
+                            </div>
+                            <div class="tip-text">
+                                <strong>Tips Mengingat:</strong><br>
+                                • 1 orang = HAS<br>
+                                • Lebih dari 1 orang = HAVE
+                            </div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Has vs Have Practice -->
+            <div class="slide" id="slide-8">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Ayo Berlatih "Has" dan "Have"!</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="has-have-practice-container">
+                            <div class="practice-instructions">
+                                <p class="instruction-text">Pilih "has" atau "have" yang benar untuk setiap kalimat!</p>
+                            </div>
+                            
+                            <div class="has-have-practice">
+                                <div class="practice-question">
+                                    <div class="question-image">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/cb412aeaf16e.jpg" alt="Boy">
+                                    </div>
+                                    <div class="question-text">
+                                        <span>He</span>
+                                        <select class="has-have-select" data-correct="has">
+                                            <option value="">Pilih...</option>
+                                            <option value="has">has</option>
+                                            <option value="have">have</option>
+                                        </select>
+                                        <span>short hair.</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="practice-question">
+                                    <div class="question-image">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/2925dd85b23d.jpg" alt="Children">
+                                    </div>
+                                    <div class="question-text">
+                                        <span>They</span>
+                                        <select class="has-have-select" data-correct="have">
+                                            <option value="">Pilih...</option>
+                                            <option value="has">has</option>
+                                            <option value="have">have</option>
+                                        </select>
+                                        <span>black eyes.</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="practice-question">
+                                    <div class="question-image">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/c3434632df67.jpg" alt="Girl">
+                                    </div>
+                                    <div class="question-text">
+                                        <span>She</span>
+                                        <select class="has-have-select" data-correct="has">
+                                            <option value="">Pilih...</option>
+                                            <option value="has">has</option>
+                                            <option value="have">have</option>
+                                        </select>
+                                        <span>long hair.</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="practice-question">
+                                    <div class="question-image">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/2925dd85b23d.jpg" alt="Children">
+                                    </div>
+                                    <div class="question-text">
+                                        <span>We</span>
+                                        <select class="has-have-select" data-correct="have">
+                                            <option value="">Pilih...</option>
+                                            <option value="has">has</option>
+                                            <option value="have">have</option>
+                                        </select>
+                                        <span>fun together.</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="practice-question">
+                                    <div class="question-image">
+                                        <img src="https://sfile.chatglm.cn/images-ppt/439ba8203ddd.jpg" alt="Boy with glasses">
+                                    </div>
+                                    <div class="question-text">
+                                        <span>Tom</span>
+                                        <select class="has-have-select" data-correct="has">
+                                            <option value="">Pilih...</option>
+                                            <option value="has">has</option>
+                                            <option value="have">have</option>
+                                        </select>
+                                        <span>glasses.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="check-answers-btn" onclick="checkHasHaveAnswers()">Check Answers</button>
+                            <div class="answers-feedback" id="has-have-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Has vs Have Quiz -->
+            <div class="slide" id="slide-9">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <h1 class="slide-title">Quiz: "Has" atau "Have"?</h1>
+                    </div>
+                    <div class="slide-body">
+                        <div class="quiz-container">
+                            <div class="quiz-question">
+                                <p class="question-text">Pilih kalimat yang benar:</p>
+                            </div>
+                            <div class="quiz-options">
+                                <div class="option" onclick="selectHasHaveQuiz(this, 'A')">
+                                    <span class="option-letter">A</span>
+                                    <span>They has black hair.</span>
+                                </div>
+                                <div class="option" onclick="selectHasHaveQuiz(this, 'B')">
+                                    <span class="option-letter">B</span>
+                                    <span>They have black hair.</span>
+                                </div>
+                                <div class="option" onclick="selectHasHaveQuiz(this, 'C')">
+                                    <span class="option-letter">C</span>
+                                    <span>They is black hair.</span>
+                                </div>
+                            </div>
+                            <div class="quiz-feedback" id="quiz-feedback-9"></div>
+                        </div>
+                    </div>
+                    <div class="decoration"></div>
+                </div>
+            </div>
+
+            <!-- Slide 10: Text Structure -->
+            <div class="slide" id="slide-10">
                 <div class="slide-content">
                     <div class="slide-header">
                         <h1 class="slide-title">Struktur Teks Deskriptif</h1>
@@ -311,8 +520,8 @@
                 </div>
             </div>
 
-            <!-- Slide 8: Practice Exercise -->
-            <div class="slide" id="slide-8">
+            <!-- Slide 11: Practice Exercise -->
+            <div class="slide" id="slide-11">
                 <div class="slide-content">
                     <div class="slide-header">
                         <h1 class="slide-title">Ayo Berlatih!</h1>
@@ -349,8 +558,8 @@
                 </div>
             </div>
 
-            <!-- Slide 9: Quiz 1 - Multiple Choice -->
-            <div class="slide" id="slide-9">
+            <!-- Slide 12: Quiz 1 - Multiple Choice -->
+            <div class="slide" id="slide-12">
                 <div class="slide-content">
                     <div class="slide-header">
                         <h1 class="slide-title">Quiz Time!</h1>
@@ -381,8 +590,8 @@
                 </div>
             </div>
 
-            <!-- Slide 10: Quiz 2 - Picture Description -->
-            <div class="slide" id="slide-10">
+            <!-- Slide 13: Quiz 2 - Picture Description -->
+            <div class="slide" id="slide-13">
                 <div class="slide-content">
                     <div class="slide-header">
                         <h1 class="slide-title">Describe This Person!</h1>
@@ -414,8 +623,8 @@
                 </div>
             </div>
 
-            <!-- Slide 11: Matching Pair Quiz -->
-            <div class="slide" id="slide-11">
+            <!-- Slide 14: Matching Pair Quiz -->
+            <div class="slide" id="slide-14">
                 <div class="slide-content">
                     <div class="slide-header">
                         <h1 class="slide-title">Matching Pair Quiz!</h1>
@@ -424,7 +633,7 @@
                         <div class="matching-container">
                             <div class="matching-instructions">
                                 <p class="instruction-text">Match the words with the correct pictures!</p>
-                                <p class="instruction-subtext">Drag the words from the left to the matching pictures on the right</p>
+                                <p class="instruction-subtext">Drag the words above the pictures to the matching pictures below</p>
                             </div>
                             
                             <div class="matching-game">
@@ -446,6 +655,21 @@
                                         </div>
                                         <div class="word-item draggable" data-word="smile" draggable="true" ondragstart="dragStart(event)">
                                             <span>smile</span>
+                                        </div>
+                                        <div class="word-item draggable" data-word="nose" draggable="true" ondragstart="dragStart(event)">
+                                            <span>nose</span>
+                                        </div>
+                                        <div class="word-item draggable" data-word="ears" draggable="true" ondragstart="dragStart(event)">
+                                            <span>ears</span>
+                                        </div>
+                                        <div class="word-item draggable" data-word="mouth" draggable="true" ondragstart="dragStart(event)">
+                                            <span>mouth</span>
+                                        </div>
+                                        <div class="word-item draggable" data-word="teeth" draggable="true" ondragstart="dragStart(event)">
+                                            <span>teeth</span>
+                                        </div>
+                                        <div class="word-item draggable" data-word="face" draggable="true" ondragstart="dragStart(event)">
+                                            <span>face</span>
                                         </div>
                                     </div>
                                 </div>
@@ -494,13 +718,53 @@
                                                 <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/c3434632df67.jpg" alt="Smile">
                                             </div>
                                         </div>
+                                        <div class="picture-item" data-word="nose">
+                                            <div class="drop-zone-box" data-word="nose" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                                <span class="matched-word"></span>
+                                            </div>
+                                            <div class="image-container">
+                                                <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/nose-example.jpg" alt="Nose">
+                                            </div>
+                                        </div>
+                                        <div class="picture-item" data-word="ears">
+                                            <div class="drop-zone-box" data-word="ears" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                                <span class="matched-word"></span>
+                                            </div>
+                                            <div class="image-container">
+                                                <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/ears-example.jpg" alt="Ears">
+                                            </div>
+                                        </div>
+                                        <div class="picture-item" data-word="mouth">
+                                            <div class="drop-zone-box" data-word="mouth" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                                <span class="matched-word"></span>
+                                            </div>
+                                            <div class="image-container">
+                                                <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/mouth-example.jpg" alt="Mouth">
+                                            </div>
+                                        </div>
+                                        <div class="picture-item" data-word="teeth">
+                                            <div class="drop-zone-box" data-word="teeth" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                                <span class="matched-word"></span>
+                                            </div>
+                                            <div class="image-container">
+                                                <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/teeth-example.jpg" alt="Teeth">
+                                            </div>
+                                        </div>
+                                        <div class="picture-item" data-word="face">
+                                            <div class="drop-zone-box" data-word="face" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+                                                <span class="matched-word"></span>
+                                            </div>
+                                            <div class="image-container">
+                                                <img class="character-image" src="https://sfile.chatglm.cn/images-ppt/cb412aeaf16e.jpg" alt="Face">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="matching-feedback" id="matching-feedback"></div>
                             <div class="matching-progress">
-                                <div class="progress-text">Matches: <span id="match-count">0</span>/5</div>
+                                <div class="progress-text">Matches: <span id="match-count">0</span>/10</div>
                                 <div class="progress-bar-matching">
                                     <div class="progress-fill-matching" id="matching-progress-fill"></div>
                                 </div>
@@ -511,8 +775,8 @@
                 </div>
             </div>
 
-            <!-- Slide 12: Final Activity -->
-            <div class="slide" id="slide-12">
+            <!-- Slide 15: Final Activity -->
+            <div class="slide" id="slide-15">
                 <div class="slide-content">
                     <div class="slide-header">
                         <h1 class="slide-title">Tugasmu Sekarang</h1>
@@ -544,8 +808,8 @@
                 </div>
             </div>
 
-            <!-- Slide 13: Results & Thank You -->
-            <div class="slide" id="slide-13">
+            <!-- Slide 16: Results & Thank You -->
+            <div class="slide" id="slide-16">
                 <div class="slide-content">
                     <div class="slide-header">
                         <h1 class="slide-title">Terima Kasih!</h1>
@@ -588,6 +852,16 @@
 
     <!-- Audio elements for pronunciation -->
     <audio id="audioPlayer" preload="auto"></audio>
+
+    <!-- Popup Overlay untuk Feedback -->
+    <div id="feedback-overlay" class="feedback-overlay">
+        <div class="feedback-popup">
+            <div class="feedback-icon" id="feedback-icon">🎉</div>
+            <div class="feedback-title" id="feedback-title">Great Job!</div>
+            <div class="feedback-message" id="feedback-message">You got it right!</div>
+            <button class="feedback-close" id="feedback-close" onclick="closeFeedbackPopup()">Continue</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
