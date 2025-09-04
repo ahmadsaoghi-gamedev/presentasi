@@ -723,46 +723,79 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 1000);
 });
 
-// Gemini AI Integration
-const GEMINI_API_KEY = 'AIzaSyAtQYk_LT8R2TPtGin3WzyVh7D28hlzIRE';
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+// Smart Feedback System with API Integration
+const GEMINI_API_KEY = window.APP_CONFIG?.GEMINI_API_KEY || null;
+const GEMINI_API_URL = window.APP_CONFIG?.GEMINI_API_URL || 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+
+// Fallback messages for when API is not available
+const fallbackMessages = {
+    correct: [
+        `Excellent! "${word}" is correct! 🎉`,
+        `Perfect match! "${word}" is right! ⭐`,
+        `Great job! You got "${word}"! 🌟`,
+        `Amazing! "${word}" is the answer! 🎊`,
+        `Fantastic! "${word}" is correct! 🚀`,
+        `Wonderful! You matched "${word}"! 💫`,
+        `Brilliant! "${word}" is right! ✨`,
+        `Outstanding! "${word}" is correct! 🏆`
+    ],
+    incorrect: [
+        `Not quite right! Try again with "${word}"! 💪`,
+        `Close! Think about "${word}" again! 🤔`,
+        `Almost there! Try "${word}" once more! 🎯`,
+        `Good try! Keep working on "${word}"! 💪`,
+        `Nice effort! Try "${word}" again! 🌟`,
+        `You're learning! Try "${word}" one more time! 📚`,
+        `Keep going! "${word}" needs another try! 🚀`,
+        `Don't give up! Try "${word}" again! 💪`
+    ]
+};
 
 async function getGeminiFeedback(isCorrect, word, context = '') {
-    try {
-        const prompt = isCorrect
-            ? `Give an encouraging and fun feedback for a correct answer in a body parts matching game. The word was "${word}". Make it enthusiastic, educational, and include an emoji. Keep it under 50 words.`
-            : `Give a helpful and encouraging feedback for an incorrect answer in a body parts matching game. The word was "${word}". Be supportive, give a hint, and include an emoji. Keep it under 50 words.`;
+    // Check if we're in a browser environment and API key is available
+    if (typeof window !== 'undefined' && window.isApiAvailable('gemini')) {
+        try {
+            const prompt = isCorrect
+                ? `Give an encouraging and fun feedback for a correct answer in a body parts matching game. The word was "${word}". Make it enthusiastic, educational, and include an emoji. Keep it under 50 words.`
+                : `Give a helpful and encouraging feedback for an incorrect answer in a body parts matching game. The word was "${word}". Be supportive, give a hint, and include an emoji. Keep it under 50 words.`;
 
-        const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{
-                        text: prompt
+            const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: prompt
+                        }]
                     }]
-                }]
-            })
-        });
+                })
+            });
 
-        if (!response.ok) {
-            throw new Error('Gemini API request failed');
+            if (!response.ok) {
+                throw new Error('Gemini API request failed');
+            }
+
+            const data = await response.json();
+            const feedback = data.candidates?.[0]?.content?.parts?.[0]?.text ||
+                getFallbackMessage(isCorrect, word);
+
+            return feedback.trim();
+        } catch (error) {
+            console.warn('Gemini API error, using fallback:', error);
+            return getFallbackMessage(isCorrect, word);
         }
-
-        const data = await response.json();
-        const feedback = data.candidates?.[0]?.content?.parts?.[0]?.text ||
-            (isCorrect ? `Great job matching "${word}"! 🎉` : `Try again with "${word}"! 💪`);
-
-        return feedback.trim();
-    } catch (error) {
-        console.error('Gemini API error:', error);
-        // Fallback feedback
-        return isCorrect
-            ? `Excellent! "${word}" is correct! 🎉`
-            : `Not quite right! Try again with "${word}"! 💪`;
+    } else {
+        // Use fallback messages
+        return getFallbackMessage(isCorrect, word);
     }
+}
+
+function getFallbackMessage(isCorrect, word) {
+    const messages = isCorrect ? fallbackMessages.correct : fallbackMessages.incorrect;
+    const randomIndex = Math.floor(Math.random() * messages.length);
+    return messages[randomIndex].replace('${word}', word);
 }
 
 // Matching Pair Quiz Functions
