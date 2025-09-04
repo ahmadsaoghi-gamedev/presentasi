@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "npx serve .",
-    "build": "node vercel-build.js",
+    "build": "echo 'No build process needed for static files'",
     "dev": "npx serve . -l 3000",
     "deploy": "echo 'Ready for deployment to Vercel or GitHub Pages'"
   },

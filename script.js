@@ -14,10 +14,15 @@ let quizAnswers = {
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function () {
-    updateProgress();
-    updateNavigation();
-    setupEventListeners();
-    initializeSlides();
+    try {
+        updateProgress();
+        updateNavigation();
+        setupEventListeners();
+        initializeSlides();
+        console.log('✅ Application initialized successfully');
+    } catch (error) {
+        console.error('❌ Error initializing application:', error);
+    }
 });
 
 // Setup event listeners

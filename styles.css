@@ -64,7 +64,7 @@
 }
 
 body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: var(--primary-gradient);
     min-height: 100vh;
     width: 100vw;
@@ -371,7 +371,7 @@ body {
 }
 
 .main-title {
-    font-family: 'Bubblegum Sans', cursive;
+    font-family: 'Bubblegum Sans', 'Comic Sans MS', cursive, sans-serif;
     font-size: clamp(3rem, 8vw, 5rem); /* Responsive font size */
     color: #FF6B6B;
     margin-bottom: 20px;
@@ -434,7 +434,7 @@ body {
 }
 
 .slide-title {
-    font-family: 'Bubblegum Sans', cursive;
+    font-family: 'Bubblegum Sans', 'Comic Sans MS', cursive, sans-serif;
     font-size: var(--font-size-3xl);
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
@@ -768,7 +768,7 @@ body {
     display: flex;
     align-items: center;
     gap: 20px;
-    font-family: 'Bubblegum Sans', cursive;
+    font-family: 'Bubblegum Sans', 'Comic Sans MS', cursive, sans-serif;
     font-size: 30px; /* Adjusted for smaller screens */
     color: var(--accent-color);
     font-weight: 700;
