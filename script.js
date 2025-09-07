@@ -2,27 +2,51 @@
 let currentSlide = 1;
 const totalSlides = 16;
 let score = 0;
+let matchingPairScore = 0; // Hanya untuk matching pair quiz
 let selectedWord = null;
 let matchedPairs = 0;
+let audioContext = null; // Global audio context
 let quizAnswers = {
     2: 1, // Slide 2: Picture 1 is correct (boy with glasses)
     9: 'B', // Slide 9: "They have black hair" is correct
     12: 'B', // Slide 12: "He has short hair" is correct
-    13: 'B' // Slide 13: "He has short hair and glasses" is correct
+    13: 'C' // Slide 13: "He has curly hair and no glasses" is correct
     // Note: Other slides are content slides, not quiz slides
 };
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function () {
-    try {
-        updateProgress();
-        updateNavigation();
-        setupEventListeners();
-        initializeSlides();
-        console.log('✅ Application initialized successfully');
-    } catch (error) {
-        console.error('❌ Error initializing application:', error);
-    }
+    updateProgress();
+    updateNavigation();
+    setupEventListeners();
+    initializeSlides();
+
+    // Show scroll indicator on page load
+    setTimeout(() => {
+        const indicator = document.getElementById('scroll-indicator');
+        if (indicator) {
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 4000); // Hide after 4 seconds
+        }
+    }, 1000); // Show after 1 second
+
+    // Ensure functions are available globally immediately
+    window.nextSlide = nextSlide;
+    window.previousSlide = previousSlide;
+    window.selectOption = selectOption;
+    window.closeFeedbackPopup = closeFeedbackPopup;
+    window.selectQuizOption = selectQuizOption;
+    window.selectHasHaveQuiz = selectHasHaveQuiz;
+    window.checkAnswers = checkAnswers;
+    window.checkHasHaveAnswers = checkHasHaveAnswers;
+    window.playAudio = playAudio;
+    window.restartPresentation = restartPresentation;
+    window.dragStart = dragStart;
+    window.dragOver = dragOver;
+    window.dragLeave = dragLeave;
+    window.drop = drop;
 });
 
 // Setup event listeners
@@ -37,6 +61,25 @@ function setupEventListeners() {
             restartPresentation();
         }
     });
+
+    // Show scroll indicator on first interaction
+    let scrollIndicatorTimeout;
+
+    function showScrollIndicator() {
+        const indicator = document.getElementById('scroll-indicator');
+        if (indicator) {
+            indicator.classList.add('show');
+            clearTimeout(scrollIndicatorTimeout);
+            scrollIndicatorTimeout = setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 3000); // Hide after 3 seconds
+        }
+    }
+
+    // Show scroll indicator on first wheel interaction
+    document.addEventListener('wheel', function (e) {
+        showScrollIndicator();
+    }, { passive: true });
 
     // Touch/swipe support for mobile
     let startX = 0;
@@ -111,6 +154,13 @@ function showSlide(slideNumber) {
     const currentSlideElement = document.getElementById(`slide-${slideNumber}`);
     if (currentSlideElement) {
         currentSlideElement.classList.add('active');
+    }
+
+    // Handle body background for slide 1
+    if (slideNumber === 1) {
+        document.body.classList.add('slide-1-active');
+    } else {
+        document.body.classList.remove('slide-1-active');
     }
 
     // Update current slide number
@@ -211,7 +261,6 @@ function selectOption(element, optionNumber) {
     if (isCorrect) {
         element.classList.add('correct');
         showFeedback(2, 'Correct! He has glasses. Great job! 🎉', 'correct');
-        score += 10;
         playSuccessSound();
     } else {
         element.classList.add('incorrect');
@@ -256,13 +305,20 @@ function selectQuizOption(element, optionLetter) {
 
     if (isCorrect) {
         element.classList.add('correct');
-        showQuizFeedback(currentSlide, 'Excellent! You got it right! 🌟', 'correct');
-        score += 15;
+        if (currentSlide === 13) {
+            showQuizFeedback(currentSlide, 'Perfect! You correctly identified that he has curly hair and no glasses! 🌟', 'correct');
+        } else {
+            showQuizFeedback(currentSlide, 'Excellent! You got it right! 🌟', 'correct');
+        }
         playSuccessSound();
     } else {
         element.classList.add('incorrect');
         const correctAnswer = quizAnswers[currentSlide];
-        showQuizFeedback(currentSlide, `Good try! The correct answer is ${correctAnswer}. Keep learning! 💪`, 'incorrect');
+        if (currentSlide === 13) {
+            showQuizFeedback(currentSlide, `Good try! The correct answer is ${correctAnswer}. Look carefully - he has curly hair and no glasses! 👀`, 'incorrect');
+        } else {
+            showQuizFeedback(currentSlide, `Good try! The correct answer is ${correctAnswer}. Keep learning! 💪`, 'incorrect');
+        }
         playErrorSound();
     }
 
@@ -328,20 +384,16 @@ function checkHasHaveAnswers() {
         }
     });
 
-    const feedback = document.getElementById('has-have-feedback');
-
+    // Show popup overlay instead of inline feedback
     if (allCorrect) {
-        feedback.textContent = `Perfect! All answers are correct! You got ${correctCount}/5 right! 🎉`;
-        feedback.className = 'answers-feedback correct show';
-        score += 25;
+        const message = `Excellent work! You got all ${correctCount}/5 answers correct! 🎉\n\nYou understand "has" and "have" perfectly!`;
+        showFeedbackPopup(true, message);
         playSuccessSound();
     } else {
-        feedback.textContent = `Good effort! You got ${correctCount}/5 correct. Keep practicing! 💪`;
-        feedback.className = 'answers-feedback incorrect show';
+        const message = `Good effort! You got ${correctCount}/5 answers correct. 💪\n\nKeep practicing! Remember:\n• 1 person = HAS\n• More than 1 person = HAVE`;
+        showFeedbackPopup(false, message);
         playErrorSound();
     }
-
-    feedback.style.display = 'block';
 }
 
 function selectHasHaveQuiz(element, optionLetter) {
@@ -360,7 +412,6 @@ function selectHasHaveQuiz(element, optionLetter) {
     if (isCorrect) {
         element.classList.add('correct');
         showQuizFeedback(currentSlide, 'Excellent! You understand "has" and "have" perfectly! 🌟', 'correct');
-        score += 15;
         playSuccessSound();
     } else {
         element.classList.add('incorrect');
@@ -418,7 +469,6 @@ function checkAnswers() {
     if (allCorrect) {
         feedback.textContent = `Perfect! All answers are correct! You got ${correctCount}/3 right! 🎉`;
         feedback.className = 'answers-feedback correct show';
-        score += 20;
         playSuccessSound();
     } else {
         feedback.textContent = `Good effort! You got ${correctCount}/3 correct. Keep practicing! 💪`;
@@ -442,28 +492,40 @@ function playAudio(text) {
 }
 
 function playSuccessSound() {
-    // Create a pleasant success sound using Web Audio API
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
+    // Create a more cheerful success sound with multiple notes
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
 
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
+    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+    const durations = [0.15, 0.15, 0.15, 0.2];
 
-    oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
-    oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
-    oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+    notes.forEach((frequency, index) => {
+        setTimeout(() => {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
 
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
 
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.5);
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            oscillator.type = 'sine';
+
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + durations[index]);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + durations[index]);
+        }, index * 100);
+    });
 }
 
 function playErrorSound() {
     // Create a gentle error sound
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
@@ -482,7 +544,10 @@ function playErrorSound() {
 
 function playSlideTransition() {
     // Play a subtle transition sound
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
@@ -503,7 +568,9 @@ function playSlideTransition() {
 function showFinalResults() {
     const finalScoreElement = document.getElementById('finalScore');
     if (finalScoreElement) {
-        finalScoreElement.textContent = score;
+        // Hitung skor final berdasarkan matching pair quiz (10 pasangan x 10 poin = 100)
+        const finalScore = Math.min(matchingPairScore, 100);
+        finalScoreElement.textContent = finalScore;
     }
 
     // Play celebration sound
@@ -516,6 +583,7 @@ function restartPresentation() {
     // Reset all variables
     currentSlide = 1;
     score = 0;
+    matchingPairScore = 0;
     selectedWord = null;
     matchedPairs = 0;
 
@@ -728,79 +796,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 1000);
 });
 
-// Smart Feedback System with API Integration
-const GEMINI_API_KEY = window.APP_CONFIG?.GEMINI_API_KEY || null;
-const GEMINI_API_URL = window.APP_CONFIG?.GEMINI_API_URL || 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+// Enhanced feedback function with more variety and interactivity
+function getSimpleFeedback(isCorrect, word, context = '') {
+    const correctMessages = [
+        `Fantastic! "${word}" is perfect! 🌟`,
+        `Amazing! You matched "${word}" correctly! 🎉`,
+        `Brilliant! "${word}" is absolutely right! ⭐`,
+        `Wonderful! You got "${word}" spot on! 🎊`,
+        `Excellent! "${word}" is the correct match! 🏆`,
+        `Perfect! You nailed "${word}"! 🎯`,
+        `Outstanding! "${word}" is exactly right! 🌈`,
+        `Superb! You matched "${word}" perfectly! 🚀`
+    ];
 
-// Fallback messages for when API is not available
-const fallbackMessages = {
-    correct: [
-        `Excellent! "${word}" is correct! 🎉`,
-        `Perfect match! "${word}" is right! ⭐`,
-        `Great job! You got "${word}"! 🌟`,
-        `Amazing! "${word}" is the answer! 🎊`,
-        `Fantastic! "${word}" is correct! 🚀`,
-        `Wonderful! You matched "${word}"! 💫`,
-        `Brilliant! "${word}" is right! ✨`,
-        `Outstanding! "${word}" is correct! 🏆`
-    ],
-    incorrect: [
-        `Not quite right! Try again with "${word}"! 💪`,
-        `Close! Think about "${word}" again! 🤔`,
-        `Almost there! Try "${word}" once more! 🎯`,
-        `Good try! Keep working on "${word}"! 💪`,
-        `Nice effort! Try "${word}" again! 🌟`,
-        `You're learning! Try "${word}" one more time! 📚`,
-        `Keep going! "${word}" needs another try! 🚀`,
-        `Don't give up! Try "${word}" again! 💪`
-    ]
-};
+    const incorrectMessages = [
+        `Good try! Let's try "${word}" again! 💪`,
+        `Not quite! Keep going with "${word}"! 🌱`,
+        `Almost there! Try "${word}" once more! 🔄`,
+        `Nice effort! Let's match "${word}"! 🎪`,
+        `Keep trying! You can do "${word}"! 🌟`,
+        `Don't give up! "${word}" is waiting! 🎨`,
+        `You're learning! Try "${word}" again! 📚`,
+        `Great attempt! Let's find "${word}"! 🎭`
+    ];
 
-async function getGeminiFeedback(isCorrect, word, context = '') {
-    // Check if we're in a browser environment and API key is available
-    if (typeof window !== 'undefined' && window.isApiAvailable('gemini')) {
-        try {
-            const prompt = isCorrect
-                ? `Give an encouraging and fun feedback for a correct answer in a body parts matching game. The word was "${word}". Make it enthusiastic, educational, and include an emoji. Keep it under 50 words.`
-                : `Give a helpful and encouraging feedback for an incorrect answer in a body parts matching game. The word was "${word}". Be supportive, give a hint, and include an emoji. Keep it under 50 words.`;
-
-            const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{
-                            text: prompt
-                        }]
-                    }]
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error('Gemini API request failed');
-            }
-
-            const data = await response.json();
-            const feedback = data.candidates?.[0]?.content?.parts?.[0]?.text ||
-                getFallbackMessage(isCorrect, word);
-
-            return feedback.trim();
-        } catch (error) {
-            console.warn('Gemini API error, using fallback:', error);
-            return getFallbackMessage(isCorrect, word);
-        }
+    if (isCorrect) {
+        return correctMessages[Math.floor(Math.random() * correctMessages.length)];
     } else {
-        // Use fallback messages
-        return getFallbackMessage(isCorrect, word);
+        return incorrectMessages[Math.floor(Math.random() * incorrectMessages.length)];
     }
-}
-
-function getFallbackMessage(isCorrect, word) {
-    const messages = isCorrect ? fallbackMessages.correct : fallbackMessages.incorrect;
-    const randomIndex = Math.floor(Math.random() * messages.length);
-    return messages[randomIndex].replace('${word}', word);
 }
 
 // Matching Pair Quiz Functions
@@ -907,12 +931,11 @@ function drop(event) {
         matchedWordSpan.textContent = draggedWord;
 
         matchedPairs++;
-        score += 10;
+        matchingPairScore += 10; // Setiap pasangan yang benar = 10 poin
 
-        // Get AI feedback for correct answer
-        getGeminiFeedback(true, draggedWord).then(feedback => {
-            showFeedbackPopup(true, feedback);
-        });
+        // Show feedback for correct answer
+        const feedback = getSimpleFeedback(true, draggedWord);
+        showFeedbackPopup(true, feedback);
         playSuccessSound();
 
         updateMatchingProgress();
@@ -921,16 +944,16 @@ function drop(event) {
         if (matchedPairs === 10) {
             setTimeout(() => {
                 showFeedbackPopup(true, 'Amazing! You matched all 10 pairs perfectly! 🌟 You\'re a vocabulary master!');
+                createConfetti(); // Add confetti celebration
                 setTimeout(() => {
                     nextSlide();
                 }, 4000);
             }, 1000);
         }
     } else {
-        // Incorrect match - get AI feedback
-        getGeminiFeedback(false, draggedWord).then(feedback => {
-            showFeedbackPopup(false, feedback);
-        });
+        // Incorrect match - show feedback
+        const feedback = getSimpleFeedback(false, draggedWord);
+        showFeedbackPopup(false, feedback);
         playErrorSound();
     }
 }
@@ -974,24 +997,34 @@ function showFeedbackPopup(isCorrect, message) {
     const messageEl = document.getElementById('feedback-message');
     const popup = overlay.querySelector('.feedback-popup');
 
-    // Set content based on correctness
+    // Set content based on correctness with random variety
     if (isCorrect) {
-        icon.textContent = '🎉';
-        title.textContent = 'Excellent!';
+        const correctIcons = ['🎉', '🌟', '⭐', '🎊', '🏆', '🎯', '🌈', '🚀', '💫', '✨'];
+        const correctTitles = ['Fantastic!', 'Amazing!', 'Brilliant!', 'Wonderful!', 'Excellent!', 'Perfect!', 'Outstanding!', 'Superb!'];
+        icon.textContent = correctIcons[Math.floor(Math.random() * correctIcons.length)];
+        title.textContent = correctTitles[Math.floor(Math.random() * correctTitles.length)];
         popup.classList.remove('error');
         popup.classList.add('success');
     } else {
-        icon.textContent = '💪';
-        title.textContent = 'Try Again!';
+        const incorrectIcons = ['💪', '🌱', '🔄', '🎪', '🌟', '🎨', '📚', '🎭', '🔮', '🎲'];
+        const incorrectTitles = ['Keep Going!', 'Try Again!', 'Almost There!', 'Good Effort!', 'Don\'t Give Up!', 'You\'re Learning!'];
+        icon.textContent = incorrectIcons[Math.floor(Math.random() * incorrectIcons.length)];
+        title.textContent = incorrectTitles[Math.floor(Math.random() * incorrectTitles.length)];
         popup.classList.remove('success');
         popup.classList.add('error');
     }
 
-    messageEl.textContent = message;
+    messageEl.innerHTML = message.replace(/\n/g, '<br>');
     overlay.classList.add('show');
+
+    // Add bounce animation after a short delay
+    setTimeout(() => {
+        popup.classList.add('bounce');
+    }, 100);
 
     // Auto close after 3 seconds
     setTimeout(() => {
+        popup.classList.remove('bounce');
         closeFeedbackPopup();
     }, 3000);
 }
@@ -1001,18 +1034,51 @@ function closeFeedbackPopup() {
     overlay.classList.remove('show');
 }
 
-// Export functions for global access
-window.nextSlide = nextSlide;
-window.previousSlide = previousSlide;
-window.selectOption = selectOption;
-window.closeFeedbackPopup = closeFeedbackPopup;
-window.selectQuizOption = selectQuizOption;
-window.selectHasHaveQuiz = selectHasHaveQuiz;
-window.checkAnswers = checkAnswers;
-window.checkHasHaveAnswers = checkHasHaveAnswers;
-window.playAudio = playAudio;
-window.restartPresentation = restartPresentation;
-window.dragStart = dragStart;
-window.dragOver = dragOver;
-window.dragLeave = dragLeave;
-window.drop = drop;
+// Confetti effect for celebrations
+function createConfetti() {
+    const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff'];
+    const confettiCount = 50;
+
+    for (let i = 0; i < confettiCount; i++) {
+        setTimeout(() => {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-10px';
+            confetti.style.borderRadius = '50%';
+            confetti.style.pointerEvents = 'none';
+            confetti.style.zIndex = '9999';
+            confetti.style.animation = `confettiFall ${2 + Math.random() * 3}s linear forwards`;
+
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }, i * 50);
+    }
+}
+
+// Add confetti animation to CSS
+const confettiCSS = `
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+`;
+
+// Inject confetti CSS
+const confettiStyle = document.createElement('style');
+confettiStyle.textContent = confettiCSS;
+document.head.appendChild(confettiStyle);
+
+// Functions are exported in DOMContentLoaded event
